@@ -23,4 +23,5 @@ return {
 	["PokerHands"] = true,
 	["Spooky"] = true,
 	["Menu"] = true,
+    ["Progression Locks"] = true,
 }

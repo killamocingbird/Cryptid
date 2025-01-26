@@ -1,0 +1,46 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = -1
+
+# At the beginning of the game we disable all Cryptid elements unless G.GAME.modifiers.cry_ingame_enabled is set by Stake
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''if self.GAME.stake >= 2 then'''
+position = "before"
+payload = '''
+if Cryptid.enabled["Progression Locks"] and not G.GAME.modifiers.cry_ingame_enabled then
+    if not G.GAME.banned_keys then
+        G.GAME.banned_keys = {}
+    end
+    for _, item in ipairs(Cryptid.obj_buffer["Joker"]) do
+        G.GAME.banned_keys[item.key] = true
+    end
+    for _, item in ipairs(Cryptid.obj_buffer["Consumable"]) do
+        G.GAME.banned_keys[item.key] = true
+    end
+    for _, item in ipairs(Cryptid.obj_buffer["Edition"]) do
+        G.GAME.banned_keys[item.key] = true
+    end
+    for _, item in ipairs(Cryptid.obj_buffer["Enhancement"]) do
+        G.GAME.banned_keys[item.key] = true
+    end
+    for _, item in ipairs(Cryptid.obj_buffer["Seal"]) do
+        G.GAME.banned_keys[item.key] = true
+    end
+    for _, item in ipairs(Cryptid.obj_buffer["Booster"]) do
+        G.GAME.banned_keys[item.key] = true
+    end
+    for _, item in ipairs(Cryptid.obj_buffer["Voucher"]) do
+        G.GAME.banned_keys[item.key] = true
+    end
+    for _, item in ipairs(Cryptid.obj_buffer["Tag"]) do
+        G.GAME.banned_keys[item.key] = true
+    end
+    for _, item in ipairs(Cryptid.obj_buffer["Blind"]) do
+        G.GAME.banned_keys[item.key] = true
+    end
+end
+'''
+match_indent = true
