@@ -7,6 +7,7 @@ local pink = {
 	applied_stakes = { "gold" },
 	prefix_config = { applied_stakes = { mod = false } },
 	modifiers = function()
+        G.GAME.modifiers.cry_ingame_enabled = true
 		G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1) + 1
 	end,
 	order = 9,

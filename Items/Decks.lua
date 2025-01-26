@@ -16,7 +16,7 @@ local very_fair = {
 	object_type = "Back",
 	name = "Very Fair Deck",
 	key = "very_fair",
-	config = { hands = -2, discards = -2, cry_no_vouchers = true },
+	config = { hands = -2, discards = -2, cry_no_vouchers = true, unlock_condition = {type = 'win_stake', stake = 8} },
 	pos = { x = 4, y = 0 },
 	order = 1,
 	--[[loc_vars = function(self, info_queue, center)
@@ -24,6 +24,8 @@ local very_fair = {
     end,--]]
 	--this doesn't work, will fix later
 	atlas = "atlasdeck",
+	unlocked = false,
+
 }
 
 very_fair_quip = {}
@@ -33,72 +35,80 @@ local equilibrium = {
 	name = "cry-Equilibrium",
 	key = "equilibrium",
 	order = 3,
-	config = { vouchers = { "v_overstock_norm", "v_overstock_plus" }, cry_equilibrium = true },
+	config = { vouchers = { "v_overstock_norm", "v_overstock_plus" }, cry_equilibrium = true, unlock_condition = {type = 'win_stake', stake = 10}  },
 	pos = { x = 0, y = 1 },
 	atlas = "atlasdeck",
+	unlocked = false,
 }
 local misprint = {
 	object_type = "Back",
 	name = "cry-Misprint",
 	key = "misprint",
 	order = 4,
-	config = { cry_misprint_min = 0.1, cry_misprint_max = 10 },
+	config = { cry_misprint_min = 0.1, cry_misprint_max = 10, unlock_condition = {type = 'win_stake', stake = 8}  },
 	pos = { x = 4, y = 2 },
 	atlas = "atlasdeck",
+	unlocked = false,
 }
 local infinite = {
 	object_type = "Back",
 	name = "cry-Infinite",
 	key = "infinite",
 	order = 2,
-	config = { cry_highlight_limit = 1e20, hand_size = 1 },
+	config = { cry_highlight_limit = 1e20, hand_size = 1, unlock_condition = {type = 'win_stake', stake = 8}  },
 	pos = { x = 3, y = 0 },
 	atlas = "atlasdeck",
+	unlocked = false,
 }
 local conveyor = {
 	object_type = "Back",
 	name = "cry-Conveyor",
 	key = "conveyor",
 	order = 7,
-	config = { cry_conveyor = true },
+	config = { cry_conveyor = true, unlock_condition = {type = 'win_stake', stake = 8}  },
 	pos = { x = 1, y = 1 },
 	atlas = "atlasdeck",
+	unlocked = false,
 }
 local CCD = {
 	object_type = "Back",
 	name = "cry-CCD",
 	key = "CCD",
 	order = 5,
-	config = { cry_ccd = true },
+	config = { cry_ccd = true, unlock_condition = {type = 'win_stake', stake = 8}  },
 	pos = { x = 0, y = 0 },
 	atlas = "atlasdeck",
+	unlocked = false,
 }
 local wormhole = {
 	object_type = "Back",
 	name = "cry-Wormhole",
 	key = "wormhole",
 	order = 6,
-	config = { cry_wormhole = true, cry_negative_rate = 20, joker_slot = -2 },
+	config = { cry_wormhole = true, cry_negative_rate = 20, joker_slot = -2, unlock_condition = {type = 'win_stake', stake = 10}  },
 	pos = { x = 3, y = 4 },
 	atlas = "atlasdeck",
+	unlocked = false,
 }
 local redeemed = {
 	object_type = "Back",
 	name = "cry-Redeemed",
 	key = "redeemed",
 	order = 8,
-	config = { cry_redeemed = true },
+	config = { cry_redeemed = true, unlock_condition = {type = 'win_stake', stake = 10}  },
 	pos = { x = 4, y = 4 },
 	atlas = "atlasdeck",
+	unlocked = false,
 }
 local legendary = {
 	object_type = "Back",
 	name = "cry-Legendary",
 	key = "legendary",
-	config = { cry_legendary = true, cry_legendary_rate = 0.2 },
+	config = { cry_legendary = true, cry_legendary_rate = 0.2, unlock_condition = {type = 'win_stake', stake = 10}  },
 	pos = { x = 0, y = 6 },
 	atlas = "atlasdeck",
 	order = 15,
+	unlocked = false,
 	trigger_effect = function(self, args)
 		if args.context == "eval" and G.GAME.last_blind and G.GAME.last_blind.boss then
 			if G.jokers then
@@ -140,9 +150,10 @@ local critical = {
 	name = "cry-Critical",
 	key = "critical",
 	order = 10,
-	config = { cry_crit_rate = 0.25, cry_crit_miss_rate = 0.125 },
+	config = { cry_crit_rate = 0.25, cry_crit_miss_rate = 0.125, unlock_condition = {type = 'win_stake', stake = 8}  },
 	pos = { x = 4, y = 5 },
 	atlas = "atlasdeck",
+	unlocked = false,
 	loc_vars = function(self, info_queue, center)
 		return { vars = { G.GAME.probabilities.normal or 1 } }
 	end,
@@ -194,9 +205,10 @@ local glowing = {
 	object_type = "Back",
 	name = "cry-Glowing",
 	key = "glowing",
-	config = { cry_glowing = true },
+	config = { cry_glowing = true, unlock_condition = {type = 'win_stake', stake = 9}  },
 	pos = { x = 4, y = 2 },
 	order = 9,
+	unlocked = false,
 	loc_vars = function(self, info_queue, center)
 		return { vars = { " " } }
 	end,
@@ -217,28 +229,31 @@ local beta = {
 	object_type = "Back",
 	name = "cry-Beta",
 	key = "beta",
-	config = { cry_beta = true },
+	config = { cry_beta = true, unlock_condition = {type = 'win_stake', stake = 8}  },
 	pos = { x = 5, y = 5 },
 	order = 13,
 	atlas = "atlasdeck",
+	unlocked = false,
 }
 local bountiful = {
 	object_type = "Back",
 	name = "cry-Bountiful",
 	key = "bountiful",
-	config = { cry_forced_draw_amount = 5 },
+	config = { cry_forced_draw_amount = 5, unlock_condition = {type = 'win_stake', stake = 8}  },
 	pos = { x = 2, y = 6 },
 	order = 14,
 	atlas = "atlasdeck",
+	unlocked = false,
 }
 local beige = {
 	object_type = "Back",
 	name = "cry-Beige",
 	key = "beige",
-	config = { cry_common_value_quad = true },
+	config = { cry_common_value_quad = true, unlock_condition = {type = 'win_stake', stake = 8}  },
 	pos = { x = 1, y = 6 },
 	order = 15,
 	atlas = "atlasdeck",
+	unlocked = false,
 }
 return {
 	name = "Misc. Decks",
@@ -246,6 +261,8 @@ return {
 		local Backapply_to_runRef = Back.apply_to_run
 		function Back.apply_to_run(self)
 			Backapply_to_runRef(self)
+			-- We enable Cryptid for all Cryptid decks
+			G.GAME.modifiers.cry_ingame_enabled = true
 			if self.effect.config.cry_no_vouchers then
 				G.GAME.modifiers.cry_no_vouchers = true
 			end
